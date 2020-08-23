@@ -1,13 +1,11 @@
 from flask import Flask
-
+from core.index import index
+from auth.auth import auth_bp
 
 app = Flask(__name__)
-
-
-@app.route('/')
-def index():
-    return 'Hello world!'
+app.register_blueprint(index)
+app.register_blueprint(auth_bp)
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=4000, debug=True)
+    app.run(port=4000, debug=True)
