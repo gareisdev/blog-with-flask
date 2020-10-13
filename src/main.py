@@ -1,19 +1,21 @@
 from flask import Flask
-from core.index import index
-from auth.auth import auth_bp
-from flask_sqlalchemy import SQLAlchemy
-from core.models.Post import db
+from flask_login import current_user
+from blog.Routes.index import index
+from blog.Routes.auth import auth_bp
+from blog.Routes.manage import manage
+from blog.Routes.profile import profile
+from blog import app, db, login_manager
+from blog.Models.User import User
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = "holamundo"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/blog.db'
-
-
-app.register_blueprint(index)
-app.register_blueprint(auth_bp)
-
-db.init_app(app) 
+# Blueprints
+app.register_blueprint(index)   # Post
+app.register_blueprint(auth_bp) # Login and Signup
+app.register_blueprint(manage)
+app.register_blueprint(profile)
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=4000, debug=True)
-
+    db.create_all()
+    app.run(port=4000, debug=True)

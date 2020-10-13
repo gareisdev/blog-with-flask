@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block title %}Inicio{%  endblock %}
+
+{% block content %}
+{% if user %}
+<div class="container mt-3">
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Welcome {{user}}!</strong>.
+  </div>
+</div>
+{%endif%}
+
+<div class="container mt-3">
+  {% for post in posts %}
+  <div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src={{post.image}} class="card-img" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <a href="/post/{{post.slug}}">
+            <h5 class="card-title">{{post.title}}</h5>
+          </a>
+          <p class="card-text">{{post.description}}.</p>
+          <p class="card-text"><small class="text-muted">{{ post.creation_date}}</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%endfor%}
+</div>
+
+{% endblock %}

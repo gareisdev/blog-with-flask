@@ -23,15 +23,28 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
+                {% if user %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Management
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{{ url_for('manage.create_post')}}">Create Posts</a>
+                      <a class="dropdown-item" href="{{ url_for('manage.list_post')}}">My Posts</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/profile">Profile</a>
+                    </div>
+                  </li>
+                  {% endif %}
             </ul>
-            <form class="form-inline my-2 my-lg-0">
+            <form class="form-inline my-2 my-lg-0" method="GET" action="/search">
                 <input class="form-control mr-sm-2" type="search" placeholder="Type some word to search"
-                    aria-label="Search" />
+                    aria-label="Search" name="t"/>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                     Search!
                 </button>
             </form>
-            {% if log %}
+            {% if user %}
             <a class="btn btn-danger my-2 ml-2 my-sm-0" href="/logout"> LOGOUT </a>
             {% else %}
             <a class="btn btn-primary my-2 ml-2 my-sm-0" href="/login"> LOGIN </a>

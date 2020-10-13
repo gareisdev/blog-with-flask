@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+<form>
+    {% if user_info %}
+    <div class="container my-5">
+        <div class="row">
+            <img src="https://i.pinimg.com/originals/d9/56/9b/d9569bbed4393e2ceb1af7ba64fdf86a.jpg" class="rounded-circle mx-auto d-block" alt="..." style="height: 15%; width: 15%;">
+        </div>
+        <div class="row pt-4">
+            <div class="form-row  mx-auto ">
+                <div class="col">
+                    <input type="text" class="form-control" value="{{user_info.name}}">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" value="{{user_info.email}}">
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</form>
+
+{% endblock %}
